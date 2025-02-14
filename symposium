@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>College Symposium 2023</title>
+  <style>
+    /* General Styles */
+    body {
+      font-family: 'Poppins', sans-serif;
+      margin: 0;
+      padding: 0;
+      background: #0f0c29; /* Dark gradient background */
+      background: linear-gradient(to right, #0f0c29, #302b63, #24243e);
+      color: #fff;
+      overflow-x: hidden;
+    }
+
+    /* Custom Cursor */
+    body {
+      cursor: none;
+    }
+
+    .custom-cursor {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 20px;
+      height: 20px;
+      background-color: transparent;
+      border: 2px solid #ff6f61;
+      border-radius: 50%;
+      pointer-events: none;
+      transform: translate(-50%, -50%);
+      transition: transform 0.1s ease-out, border 0.2s ease;
+      z-index: 1000;
+      box-shadow: 0 0 10px #ff6f61, 0 0 20px #ff6f61;
+    }
+
+    .custom-cursor.clicked {
+      transform: translate(-50%, -50%) scale(1.5);
+      border-color: #ffcc00;
+      box-shadow: 0 0 15px #ffcc00, 0 0 30px #ffcc00;
+    }
+
+    .cursor-trail {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 10px;
+      height: 10px;
+      background-color: rgba(255, 111, 97, 0.5);
+      border-radius: 50%;
+      pointer-events: none;
+      transform: translate(-50%, -50%);
+      z-index: 999;
+      animation: trailFade 0.5s ease-out forwards;
+    }
+
+    @keyframes trailFade {
+      0% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+      100% { opacity: 0; transform: translate(-50%, -50%) scale(2); }
+    }
+
+    /* Header with Hero Section */
+    header {
+      text-align: center;
+      padding: 100px 20px;
+      background: url('https://via.placeholder.com/1920x800') no-repeat center center/cover;
+      position: relative;
+    }
+
+    header::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+    }
+
+    .logo {
+      font-size: 4rem;
+      font-weight: bold;
+      background: linear-gradient(45deg, #ff6f61, #ffcc00);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      display: inline-block;
+      margin-bottom: 10px;
+      position: relative;
+      z-index: 1;
+    }
+
+    header p {
+      font-size: 1.5rem;
+      color: #ccc;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* Countdown Timer */
+    #countdown {
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+      margin: 60px 0;
+    }
+
+    #countdown div {
+      text-align: center;
+      background: rgba(255, 255, 255, 0.1);
+      padding: 30px;
+      border-radius: 15px;
+      width: 120px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    #countdown div:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5);
+    }
+
+    #countdown span {
+      display: block;
+      font-size: 2.5rem;
+      font-weight: bold;
+      background: linear-gradient(45deg, #ff6f61, #ffcc00);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    #countdown small {
+      font-size: 1rem;
+      color: #ccc;
+    }
+
+    /* Events Section */
+    #events {
+      padding: 40px 20px;
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 30px;
+    }
+
+    .event {
+      background: rgba(255, 255, 255, 0.1);
+      padding: 25px;
+      border-radius: 15px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .event:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5);
+    }
+
+    .event img {
+      width: 100%;
+      border-radius: 10px;
+      margin-bottom: 15px;
+    }
+
+    .event h3 {
+      margin: 0 0 10px;
+      font-size: 1.8rem;
+      background: linear-gradient(45deg, #ff6f61, #ffcc00);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .event p {
+      margin: 0;
+      color: #ccc;
+    }
+
+    /* Footer */
+    footer {
+      text-align: center;
+      padding: 30px;
+      background: rgba(0, 0, 0, 0.3);
+      margin-top: 60px;
+    }
+
+    footer p {
+      margin: 0;
+      font-size: 0.9rem;
+      color: #ccc;
+    }
+
+    /* Animations */
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    header, #countdown, #events, footer {
+      animation: fadeIn 1s ease-out;
+    }
+  </style>
+</head>
+<body>
+  <!-- Custom Cursor -->
+  <div class="custom-cursor"></div>
+
+  <!-- Header with Hero Section -->
+  <header>
+    <div class="logo">Symposium 2023</div>
+    <p>Where Innovation Meets Creativity</p>
+  </header>
+
+  <!-- Countdown Timer -->
+  <div id="countdown">
+    <div>
+      <span id="days">00</span>
+      <small>Days</small>
+    </div>
+    <div>
+      <span id="hours">00</span>
+      <small>Hours</small>
+    </div>
+    <div>
+      <span id="minutes">00</span>
+      <small>Minutes</small>
+    </div>
+    <div>
+      <span id="seconds">00</span>
+      <small>Seconds</small>
+    </div>
+  </div>
+
+  <!-- Events Section -->
+  <section id="events">
+    <div class="event">
+      <img src="https://via.placeholder.com/400x250" alt="Tech Talk">
+      <h3>Tech Talk</h3>
+      <p>Explore the latest trends in technology with industry experts.</p>
+    </div>
+    <div class="event">
+      <img src="https://via.placeholder.com/400x250" alt="Coding Challenge">
+      <h3>Coding Challenge</h3>
+      <p>Compete in a thrilling coding competition and showcase your skills.</p>
+    </div>
+    <div class="event">
+      <img src="https://via.placeholder.com/400x250" alt="Innovation Expo">
+      <h3>Innovation Expo</h3>
+      <p>Present your groundbreaking ideas to a panel of judges.</p>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <p>&copy; 2023 College Symposium. All rights reserved.</p>
+  </footer>
+
+  <script>
+    // Custom Cursor Logic
+    const cursor = document.querySelector('.custom-cursor');
+    const trailContainer = document.createElement('div');
+    document.body.appendChild(trailContainer);
+
+    document.addEventListener('mousemove', (e) => {
+      cursor.style.left = `${e.pageX}px`;
+      cursor.style.top = `${e.pageY}px`;
+
+      // Create a trail effect
+      const trail = document.createElement('div');
+      trail.className = 'cursor-trail';
+      trail.style.left = `${e.pageX}px`;
+      trail.style.top = `${e.pageY}px`;
+      trailContainer.appendChild(trail);
+
+      // Remove trail after animation
+      setTimeout(() => trail.remove(), 500);
+    });
+
+    document.addEventListener('click', () => {
+      cursor.classList.add('clicked');
+      setTimeout(() => cursor.classList.remove('clicked'), 100);
+    });
+
+    // Countdown Timer Logic
+    const countdown = () => {
+      const targetDate = new Date('2023-12-31T23:59:59').getTime();
+      const now = new Date().getTime();
+      const timeLeft = targetDate - now;
+
+      const days = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
+
+      document.getElementById('days').innerText = String(days).padStart(2, '0');
+      document.getElementById('hours').innerText = String(hours).padStart(2, '0');
+      document.getElementById('minutes').innerText = String(minutes).padStart(2, '0');
+      document.getElementById('seconds').innerText = String(seconds).padStart(2, '0');
+    };
+
+    setInterval(countdown, 1000);
+  </script>
+</body>
+</html>
